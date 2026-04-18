@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Walia Mushrooms | Premium Fresh &amp; Export</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ─── NAVIGATION ─── -->
+  <nav>
+    <a href="#" class="nav-logo">Walia <span>Mushrooms</span></a>
+
+    <ul class="nav-links">
+      <li><a href="#products">Shop</a></li>
+      <li><a href="#export">Export</a></li>
+      <li><a href="#inquiry">Contact</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <div class="cart-icon" onclick="openCart()">
+        🛒
+        <span class="cart-count" id="cart-count">0</span>
+      </div>
+      <a href="#inquiry" class="nav-cta">Get a Quote</a>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="hero-text fade-in">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Farm-Fresh Since 1998
+      </div>
+
+      <h1>India's Finest<br /><em>Mushrooms,</em><br />Grown With Care</h1>
+
+      <p class="hero-desc">
+        From local kitchens to global markets — Walia Mushrooms delivers
+        premium, certified mushroom varieties. Retail orders across India
+        &amp; B2B export worldwide.
+      </p>
+
+      <div class="hero-btns">
+        <a href="#products" class="btn-primary">Shop Fresh</a>
+        <a href="#export" class="btn-secondary">Global Export →</a>
+      </div>
+    </div>
+
+    <div class="hero-visual fade-in">
+      <div class="hero-img-wrap">
+        <div class="hero-mushroom-icon">🍄</div>
+      </div>
+      <div class="hero-stat hero-stat-1">
+        <div class="num">50+</div>
+        <div class="lbl">Countries Exported</div>
+      </div>
+      <div class="hero-stat hero-stat-2">
+        <div class="num">100%</div>
+        <div class="lbl">Organic Certified</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TRUST BAR ─── -->
+  <div class="trust-bar">
+    <div class="trust-item"><span class="trust-icon">🌿</span> FSSAI Certified</div>
+    <div class="trust-item"><span class="trust-icon">🚚</span> Pan-India Delivery</div>
+    <div class="trust-item"><span class="trust-icon">🌍</span> 50+ Export Countries</div>
+    <div class="trust-item"><span class="trust-icon">⭐</span> 4.9 / 5 Rating</div>
+    <div class="trust-item"><span class="trust-icon">🔬</span> Lab Tested Every Batch</div>
+  </div>
+
+  <!-- ─── PRODUCTS ─── -->
+  <section id="products" class="fade-in">
+    <div class="products-header section-head">
+      <div>
+        <div class="section-label">Fresh Harvest</div>
+        <h2 class="section-title">Our Mushroom Varieties</h2>
+        <p class="section-sub">Handpicked daily. Delivered fresh or dried to your doorstep.</p>
+      </div>
+      <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterProducts('all', this)">All</button>
+        <button class="filter-tab" onclick="filterProducts('fresh', this)">Fresh</button>
+        <button class="filter-tab" onclick="filterProducts('dried', this)">Dried</button>
+        <button class="filter-tab" onclick="filterProducts('export', this)">Export Ready</button>
+      </div>
+    </div>
+
+    <div class="product-grid" id="product-grid"></div>
+  </section>
+
+  <!-- ─── EXPORT ─── -->
+  <section id="export" class="fade-in">
+    <div class="export-grid">
+
+      <div>
+        <div class="section-label">Global Trade</div>
+        <h2 class="section-title">Trusted by Importers<br />Across the Globe</h2>
+        <p class="section-sub">
+          We offer full export documentation, phytosanitary certificates, and
+          cold-chain logistics. MOQ from 500 kg with consistent quality guaranteed.
+        </p>
+
+        <div class="export-features">
+          <div class="export-feat">
+            <div class="export-feat-icon">📦</div>
+            <div class="export-feat-title">Custom Packaging</div>
+            <div class="export-feat-desc">Vacuum-sealed, nitrogen-flushed, or bulk for industrial use</div>
+          </div>
+          <div class="export-feat">
+            <div class="export-feat-icon">🌡️</div>
+            <div class="export-feat-title">Cold Chain</div>
+            <div class="export-feat-desc">2–4°C maintained from farm to port</div>
+          </div>
+          <div class="export-feat">
+            <div class="export-feat-icon">📋</div>
+            <div class="export-feat-title">Full Documentation</div>
+            <div class="export-feat-desc">COA, Phyto cert, FSSAI, Organic cert</div>
+          </div>
+          <div class="export-feat">
+            <div class="export-feat-icon">⚡</div>
+            <div class="export-feat-title">Fast Turnaround</div>
+            <div class="export-feat-desc">72-hour order processing, 5–7 day shipping</div>
+          </div>
+        </div>
+
+        <div class="export-countries">
+          <span class="country-tag">🇺🇸 USA</span>
+          <span class="country-tag">🇩🇪 Germany</span>
+          <span class="country-tag">🇯🇵 Japan</span>
+          <span class="country-tag">🇦🇪 UAE</span>
+          <span class="country-tag">🇬🇧 UK</span>
+          <span class="country-tag">🇸🇬 Singapore</span>
+          <span class="country-tag">+ 44 more</span>
+        </div>
+      </div>
+
+      <div class="export-certs">
+        <div class="cert-item">
+          <div class="cert-icon">🌿</div>
+          <div>
+            <div class="cert-title">FSSAI License</div>
+            <div class="cert-desc">Food Safety &amp; Standards Authority of India certified</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">🔬</div>
+          <div>
+            <div class="cert-title">Organic India Certified</div>
+            <div class="cert-desc">Third-party verified organic farming practices</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">🌍</div>
+          <div>
+            <div class="cert-title">APEDA Registered</div>
+            <div class="cert-desc">Agricultural &amp; Processed Food Export Development</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">📊</div>
+          <div>
+            <div class="cert-title">ISO 22000:2018</div>
+            <div class="cert-desc">Food safety management system certification</div>
+          </div>
+        </div>
+        <a href="#inquiry" class="btn-primary" style="margin-top:1rem;display:inline-block;">
+          Request Export Samples →
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── INQUIRY / CONTACT ─── -->
+  <section id="inquiry" class="fade-in">
+    <div class="inquiry-grid">
+
+      <div>
+        <div class="section-label">Get in Touch</div>
+        <h2 class="section-title">Interested in Bulk<br />or Export Orders?</h2>
+        <p class="section-sub">
+          Fill in your details and our team will respond within 24 hours with
+          pricing, samples, and documentation.
+        </p>
+
+        <div class="why-items">
+          <div class="why-item">
+            <div class="why-num">1</div>
+            <div class="why-text">
+              <strong>Submit Your Inquiry</strong>
+              <p>Tell us your product needs, quantity, and destination country.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">2</div>
+            <div class="why-text">
+              <strong>Receive a Custom Quote</strong>
+              <p>We'll send a detailed price sheet, MOQ, and logistics cost within 24 hours.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">3</div>
+            <div class="why-text">
+              <strong>Sample &amp; Confirm</strong>
+              <p>Order a sample shipment before committing to a full bulk order.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-wrap">
+        <h3>Send an Inquiry</h3>
+        <form onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" name="fullName" placeholder="Ramesh Sharma" required />
+            </div>
+            <div class="form-group">
+              <label>Company</label>
+              <input type="text" name="company" placeholder="ABC Imports Ltd." />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" name="email" placeholder="you@company.com" required />
+            </div>
+            <div class="form-group">
+              <label>Phone / WhatsApp</label>
+              <input type="tel" name="phone" placeholder="+91 98765 43210" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Type of Order</label>
+            <select name="orderType">
+              <option value="">Select order type</option>
+              <option>Retail / B2C (India)</option>
+              <option>Wholesale / B2B (India)</option>
+              <option>Export Order</option>
+              <option>Sample Request</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Product Interest</label>
+              <select name="product">
+                <option>Button Mushrooms</option>
+                <option>Shiitake (Dried)</option>
+                <option>Oyster Mushrooms</option>
+                <option>Porcini (Export)</option>
+                <option>Mixed Variety</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Quantity Required</label>
+              <input type="text" name="quantity" placeholder="e.g. 500 kg / month" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Message</label>
+            <textarea name="message" placeholder="Tell us more about your requirements, destination country, packaging preferences..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">Submit Inquiry →</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer id="about">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">Walia <span>Mushrooms</span></a>
+        <p>
+          India's premium mushroom producer since 1998. Trusted by households,
+          restaurants, and importers across 50+ countries.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="#products">Button Mushrooms</a>
+        <a href="#products">Shiitake</a>
+        <a href="#products">Oyster Mushrooms</a>
+        <a href="#products">Dried Range</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Export</h4>
+        <a href="#export">Certifications</a>
+        <a href="#export">Countries We Ship</a>
+        <a href="#inquiry">Get a Quote</a>
+        <a href="#inquiry">Request Samples</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:export@waliamushrooms.com">export@waliamushrooms.com</a>
+        <a href="tel:+911234567890">+91 12345 67890</a>
+        <a href="#">WhatsApp Us</a>
+        <a href="#">Haryana, India</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 Walia Mushrooms. All rights reserved.</span>
+      <span>FSSAI: 12345678901234 | APEDA Registered</span>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- JavaScript -->
+  <script src="js/app.js"></script>
+
+</body>
+</html>
