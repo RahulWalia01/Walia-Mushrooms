@@ -202,11 +202,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/rahulwalia/Downloads/Mashroom/Mashroom.csproj",
+      "projectUniqueName": "/Users/rahulwalia/GitHub/Walia-Mushrooms/Mashroom.csproj",
       "projectName": "Mashroom",
-      "projectPath": "/Users/rahulwalia/Downloads/Mashroom/Mashroom.csproj",
+      "projectPath": "/Users/rahulwalia/GitHub/Walia-Mushrooms/Mashroom.csproj",
       "packagesPath": "/Users/rahulwalia/.nuget/packages/",
-      "outputPath": "/Users/rahulwalia/Downloads/Mashroom/obj/",
+      "outputPath": "/Users/rahulwalia/GitHub/Walia-Mushrooms/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/rahulwalia/.nuget/NuGet/NuGet.Config"
