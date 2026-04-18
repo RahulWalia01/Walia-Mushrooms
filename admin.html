@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel — Walia Mushrooms Inquiries</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --forest: #2D5016; --moss: #4A7C2F; --sage: #8DB87A;
+      --cream: #F7F3EE;  --dark: #1A1A16; --muted: #6B6B5E;
+      --border: rgba(26,26,22,0.12);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--dark); }
+
+    /* ── TOP BAR ── */
+    header {
+      background:var(--forest); color:white;
+      padding:1rem 2.5rem;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    header h1 { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; }
+    header span { font-size:0.85rem; opacity:0.7; }
+    .header-right { display:flex; align-items:center; gap:1.5rem; }
+    .unread-badge {
+      background:var(--sage); color:var(--dark);
+      padding:0.25rem 0.75rem; border-radius:100px;
+      font-size:0.78rem; font-weight:500;
+    }
+    .back-link {
+      color:rgba(255,255,255,0.7); text-decoration:none;
+      font-size:0.85rem; transition:color 0.2s;
+    }
+    .back-link:hover { color:white; }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      display:flex; gap:1.5rem; padding:1.5rem 2.5rem;
+      background:white; border-bottom:1px solid var(--border);
+      flex-wrap:wrap;
+    }
+    .stat-card {
+      background:var(--cream); border-radius:12px;
+      padding:0.75rem 1.25rem; min-width:120px;
+    }
+    .stat-card .num { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; color:var(--forest); }
+    .stat-card .lbl { font-size:0.75rem; color:var(--muted); margin-top:2px; }
+
+    /* ── FILTERS ── */
+    .controls {
+      padding:1.25rem 2.5rem;
+      display:flex; gap:1rem; align-items:center; flex-wrap:wrap;
+    }
+    .filter-btn {
+      background:white; border:1px solid var(--border); border-radius:100px;
+      padding:0.35rem 1rem; font-size:0.8rem; cursor:pointer;
+      transition:all 0.2s; color:var(--muted); font-family:'DM Sans',sans-serif;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background:var(--forest); color:white; border-color:var(--forest);
+    }
+    .search-box {
+      margin-left:auto;
+      padding:0.4rem 1rem; border:1px solid var(--border); border-radius:100px;
+      font-family:'DM Sans',sans-serif; font-size:0.85rem;
+      background:white; outline:none; width:220px;
+    }
+    .search-box:focus { border-color:var(--moss); }
+
+    /* ── TABLE ── */
+    .table-wrap { padding:0 2.5rem 2.5rem; overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; background:white; border-radius:16px; overflow:hidden; border:1px solid var(--border); }
+    thead { background:var(--forest); color:white; }
+    thead th { padding:0.9rem 1rem; font-size:0.78rem; font-weight:500; letter-spacing:0.5px; text-align:left; }
+    tbody tr { border-bottom:1px solid var(--border); transition:background 0.15s; }
+    tbody tr:last-child { border-bottom:none; }
+    tbody tr:hover { background:var(--cream); }
+    tbody tr.unread { background:#fffdf8; }
+    td { padding:0.9rem 1rem; font-size:0.85rem; vertical-align:top; }
+    td.name { font-weight:500; }
+    td.message-cell { max-width:200px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+    .product-tag {
+      background:#e8f5e0; color:var(--moss);
+      padding:2px 8px; border-radius:100px; font-size:0.72rem; font-weight:500;
+    }
+    .order-tag {
+      background:#f0e8dc; color:#8B6A3E;
+      padding:2px 8px; border-radius:100px; font-size:0.72rem; font-weight:500;
+    }
+    .unread-dot {
+      display:inline-block; width:8px; height:8px;
+      background:var(--moss); border-radius:50%; margin-right:6px;
+    }
+
+    /* ── ACTION BUTTONS ── */
+    .action-btns { display:flex; gap:0.4rem; }
+    .btn-read, .btn-delete, .btn-view {
+      border:none; border-radius:8px; padding:4px 10px;
+      font-size:0.75rem; cursor:pointer; font-family:'DM Sans',sans-serif;
+      transition:all 0.2s;
+    }
+    .btn-read   { background:#e8f5e0; color:var(--moss); }
+    .btn-read:hover   { background:var(--moss); color:white; }
+    .btn-delete { background:#fde8e8; color:#c0392b; }
+    .btn-delete:hover { background:#c0392b; color:white; }
+    .btn-view   { background:#f0e8dc; color:#8B6A3E; }
+    .btn-view:hover   { background:#8B6A3E; color:white; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display:none; position:fixed; inset:0;
+      background:rgba(0,0,0,0.45); z-index:999;
+      align-items:center; justify-content:center;
+    }
+    .modal-overlay.open { display:flex; }
+    .modal {
+      background:white; border-radius:20px; padding:2rem;
+      max-width:560px; width:90%; max-height:85vh; overflow-y:auto;
+    }
+    .modal h2 { font-family:'Playfair Display',serif; margin-bottom:1.25rem; color:var(--forest); }
+    .modal-row { display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.88rem; }
+    .modal-row:last-child { border-bottom:none; }
+    .modal-row .key { color:var(--muted); font-weight:500; min-width:120px; }
+    .modal-row .val { color:var(--dark); text-align:right; }
+    .modal-close {
+      margin-top:1.5rem; width:100%; background:var(--forest); color:white;
+      border:none; padding:0.75rem; border-radius:100px; cursor:pointer;
+      font-family:'DM Sans',sans-serif; font-size:0.9rem;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty { text-align:center; padding:4rem; color:var(--muted); font-size:0.95rem; }
+    .empty .icon { font-size:3rem; margin-bottom:1rem; }
+
+    /* ── LOADING ── */
+    .loading { text-align:center; padding:3rem; color:var(--muted); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>🍄 Walia Mushrooms — Inquiry Admin</h1>
+    <div class="header-right">
+      <span class="unread-badge" id="unread-label">0 Unread</span>
+      <a href="index.html" class="back-link">← Back to Website</a>
+    </div>
+  </header>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-card"><div class="num" id="stat-total">0</div><div class="lbl">Total Inquiries</div></div>
+    <div class="stat-card"><div class="num" id="stat-unread">0</div><div class="lbl">Unread</div></div>
+    <div class="stat-card"><div class="num" id="stat-export">0</div><div class="lbl">Export Orders</div></div>
+    <div class="stat-card"><div class="num" id="stat-today">0</div><div class="lbl">Today</div></div>
+  </div>
+
+  <!-- Filters -->
+  <div class="controls">
+    <button class="filter-btn active" onclick="applyFilter('all', this)">All</button>
+    <button class="filter-btn" onclick="applyFilter('unread', this)">Unread</button>
+    <button class="filter-btn" onclick="applyFilter('Export Order', this)">Export Orders</button>
+    <button class="filter-btn" onclick="applyFilter('Retail / B2C (India)', this)">Retail</button>
+    <button class="filter-btn" onclick="applyFilter('Wholesale / B2B (India)', this)">Wholesale</button>
+    <input class="search-box" type="text" id="search-box" placeholder="🔍  Search by name, email, product..." oninput="renderTable()" />
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrap">
+    <div class="loading" id="loading">Loading inquiries...</div>
+    <table id="inquiry-table" style="display:none;">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name / Company</th>
+          <th>Contact</th>
+          <th>Product</th>
+          <th>Order Type</th>
+          <th>Quantity</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+    <div class="empty" id="empty-state" style="display:none;">
+      <div class="icon">📭</div>
+      No inquiries found.
+    </div>
+  </div>
+
+  <!-- Detail Modal -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+    <div class="modal" id="modal-content">
+      <h2 id="modal-name"></h2>
+      <div id="modal-rows"></div>
+      <button class="modal-close" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const API = "http://localhost:5000/api/inquiries";
+    let allInquiries = [];
+    let currentFilter = "all";
+
+    // ── Fetch from API ────────────────────────────────────────────────────────
+    async function loadInquiries() {
+      try {
+        const res  = await fetch(API);
+        allInquiries = await res.json();
+        updateStats();
+        renderTable();
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("inquiry-table").style.display = "table";
+      } catch (err) {
+        document.getElementById("loading").textContent =
+          "⚠ Could not connect to backend. Make sure your C# API is running at " + API;
+      }
+    }
+
+    // ── Stats ─────────────────────────────────────────────────────────────────
+    function updateStats() {
+      const today  = new Date().toDateString();
+      const unread = allInquiries.filter(i => !i.isRead).length;
+      const expo   = allInquiries.filter(i => i.orderType === "Export Order").length;
+      const tod    = allInquiries.filter(i => new Date(i.submittedAt).toDateString() === today).length;
+
+      document.getElementById("stat-total").textContent  = allInquiries.length;
+      document.getElementById("stat-unread").textContent = unread;
+      document.getElementById("stat-export").textContent = expo;
+      document.getElementById("stat-today").textContent  = tod;
+      document.getElementById("unread-label").textContent = `${unread} Unread`;
+    }
+
+    // ── Render Table ──────────────────────────────────────────────────────────
+    function renderTable() {
+      const search = document.getElementById("search-box").value.toLowerCase();
+      let data = allInquiries;
+
+      if (currentFilter !== "all") {
+        if (currentFilter === "unread") data = data.filter(i => !i.isRead);
+        else data = data.filter(i => i.orderType === currentFilter);
+      }
+
+      if (search) {
+        data = data.filter(i =>
+          i.fullName.toLowerCase().includes(search) ||
+          i.email.toLowerCase().includes(search) ||
+          i.product.toLowerCase().includes(search) ||
+          i.company.toLowerCase().includes(search)
+        );
+      }
+
+      const tbody = document.getElementById("table-body");
+      if (data.length === 0) {
+        document.getElementById("inquiry-table").style.display = "none";
+        document.getElementById("empty-state").style.display = "block";
+        return;
+      }
+
+      document.getElementById("inquiry-table").style.display = "table";
+      document.getElementById("empty-state").style.display = "none";
+
+      tbody.innerHTML = data.map(i => `
+        <tr class="${!i.isRead ? 'unread' : ''}" id="row-${i.id}">
+          <td style="color:var(--muted);font-size:0.78rem;">#${i.id}</td>
+          <td class="name">
+            ${!i.isRead ? '<span class="unread-dot"></span>' : ''}
+            ${i.fullName}<br>
+            <span style="font-size:0.75rem;color:var(--muted);font-weight:400;">${i.company || '—'}</span>
+          </td>
+          <td>
+            <a href="mailto:${i.email}" style="color:var(--forest);font-size:0.82rem;">${i.email}</a><br>
+            <span style="font-size:0.78rem;color:var(--muted);">${i.phone || '—'}</span>
+          </td>
+          <td><span class="product-tag">${i.product}</span></td>
+          <td><span class="order-tag">${i.orderType || '—'}</span></td>
+          <td style="font-size:0.82rem;">${i.quantity || '—'}</td>
+          <td style="font-size:0.78rem;color:var(--muted);">${formatDate(i.submittedAt)}</td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-view"   onclick="viewDetail(${i.id})">View</button>
+              ${!i.isRead ? `<button class="btn-read" onclick="markRead(${i.id})">✓ Read</button>` : ''}
+              <button class="btn-delete" onclick="deleteInquiry(${i.id})">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    // ── Filter ────────────────────────────────────────────────────────────────
+    function applyFilter(filter, btn) {
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentFilter = filter;
+      renderTable();
+    }
+
+    // ── Mark as Read ──────────────────────────────────────────────────────────
+    async function markRead(id) {
+      await fetch(`${API}/${id}/read`, { method: "PATCH" });
+      const inquiry = allInquiries.find(i => i.id === id);
+      if (inquiry) inquiry.isRead = true;
+      updateStats();
+      renderTable();
+    }
+
+    // ── Delete ────────────────────────────────────────────────────────────────
+    async function deleteInquiry(id) {
+      if (!confirm("Delete this inquiry? This cannot be undone.")) return;
+      await fetch(`${API}/${id}`, { method: "DELETE" });
+      allInquiries = allInquiries.filter(i => i.id !== id);
+      updateStats();
+      renderTable();
+    }
+
+    // ── View Detail Modal ─────────────────────────────────────────────────────
+    function viewDetail(id) {
+      const i = allInquiries.find(x => x.id === id);
+      if (!i) return;
+
+      document.getElementById("modal-name").textContent = i.fullName;
+      document.getElementById("modal-rows").innerHTML = [
+        ["Company",    i.company     || "—"],
+        ["Email",      i.email],
+        ["Phone",      i.phone       || "—"],
+        ["Order Type", i.orderType   || "—"],
+        ["Product",    i.product],
+        ["Quantity",   i.quantity    || "—"],
+        ["Submitted",  formatDate(i.submittedAt)],
+        ["Status",     i.isRead ? "✅ Read" : "🔵 Unread"],
+        ["Message",    i.message     || "—"],
+      ].map(([key, val]) => `
+        <div class="modal-row">
+          <span class="key">${key}</span>
+          <span class="val">${val}</span>
+        </div>
+      `).join("");
+
+      document.getElementById("modal-overlay").classList.add("open");
+      if (!i.isRead) markRead(id);
+    }
+
+    function closeModal(event) {
+      if (!event || event.target === document.getElementById("modal-overlay")) {
+        document.getElementById("modal-overlay").classList.remove("open");
+      }
+    }
+
+    // ── Helpers ───────────────────────────────────────────────────────────────
+    function formatDate(iso) {
+      return new Date(iso).toLocaleDateString("en-IN", {
+        day: "2-digit", month: "short", year: "numeric",
+        hour: "2-digit", minute: "2-digit"
+      });
+    }
+
+    // ── Init ──────────────────────────────────────────────────────────────────
+    loadInquiries();
+    setInterval(loadInquiries, 30000); // Auto-refresh every 30 seconds
+  </script>
+</body>
+</html>

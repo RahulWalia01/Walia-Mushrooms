@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "CMo12TqcyFo=",
+  "success": true,
+  "projectFilePath": "/Users/rahulwalia/Downloads/Mashroom/Mashroom.csproj",
+  "expectedPackageFiles": [
+    "/Users/rahulwalia/.nuget/packages/microsoft.aspnetcore.openapi/10.0.3/microsoft.aspnetcore.openapi.10.0.3.nupkg.sha512",
+    "/Users/rahulwalia/.nuget/packages/microsoft.entityframeworkcore/10.0.6/microsoft.entityframeworkcore.10.0.6.nupkg.sha512",
+    "/Users/rahulwalia/.nuget/packages/microsoft.entityframeworkcore.abstractions/10.0.6/microsoft.entityframeworkcore.abstractions.10.0.6.nupkg.sha512",
+    "/Users/rahulwalia/.nuget/packages/microsoft.entityframeworkcore.analyzers/10.0.6/microsoft.entityframeworkcore.analyzers.10.0.6.nupkg.sha512",
+    "/Users/rahulwalia/.nuget/packages/microsoft.entityframeworkcore.inmemory/10.0.6/microsoft.entityframeworkcore.inmemory.10.0.6.nupkg.sha512",
+    "/Users/rahulwalia/.nuget/packages/microsoft.openapi/2.0.0/microsoft.openapi.2.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
