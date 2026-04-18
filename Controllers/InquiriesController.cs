@@ -58,6 +58,16 @@ namespace MushroomApi.Controllers
             return Ok(inquiries);
         }
 
+        // ── GET /api/inquiries/{id} ── Fetch single inquiry ──────────────────
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var inquiry = await _db.Inquiries.FindAsync(id);
+            if (inquiry is null) return NotFound();
+
+            return Ok(inquiry);
+        }
+
         // ── PATCH /api/inquiries/{id}/read ── Mark as Read ───────────────────
         [HttpPatch("{id}/read")]
         public async Task<IActionResult> MarkAsRead(int id)

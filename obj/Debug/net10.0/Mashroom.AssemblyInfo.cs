@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Mashroom")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e568c0d867812987eea4b0e530512cd9d7041b9b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Mashroom")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Mashroom")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
